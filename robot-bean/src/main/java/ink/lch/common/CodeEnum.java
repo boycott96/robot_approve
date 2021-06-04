@@ -2,7 +2,7 @@ package ink.lch.common;
 
 public enum CodeEnum implements BaseErrorInfoInterface {
     // 通用处理值
-    SUCCESS("系统正常", "200"),
+    SUCCESS("系统正常", "0"),
     SERVER_ERROR("系统繁忙", "503"),
     INTERNAL_SERVER_ERROR("服务器内部错误!", "500"),
     NOT_FOUND("未找到该资源!", "404"),

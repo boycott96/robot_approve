@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -10,11 +11,13 @@
         <module name="robot-bean" />
         <module name="robot-config" />
         <module name="robot-dao" />
+        <module name="robot-api" />
         <module name="robot-redis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="robot" target="1.8" />
+      <module name="robot-api" target="1.8" />
       <module name="robot-bean" target="1.8" />
       <module name="robot-config" target="1.8" />
       <module name="robot-dao" target="1.8" />
@@ -26,6 +29,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="robot" options="-parameters" />
+      <module name="robot-api" options="-parameters" />
       <module name="robot-bean" options="-parameters" />
       <module name="robot-config" options="-parameters" />
       <module name="robot-dao" options="-parameters" />

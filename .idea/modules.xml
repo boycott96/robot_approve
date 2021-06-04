@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/robot/robot.iml" filepath="$PROJECT_DIR$/robot/robot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robot-api/robot-api.iml" filepath="$PROJECT_DIR$/robot-api/robot-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/robot-bean/robot-bean.iml" filepath="$PROJECT_DIR$/robot-bean/robot-bean.iml" />
       <module fileurl="file://$PROJECT_DIR$/robot-config/robot-config.iml" filepath="$PROJECT_DIR$/robot-config/robot-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/robot-dao/robot-dao.iml" filepath="$PROJECT_DIR$/robot-dao/robot-dao.iml" />

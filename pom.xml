@@ -16,6 +16,19 @@
     <description>robot app</description>
 
     <packaging>pom</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.76</version>
+        </dependency>
+    </dependencies>
 
     <modules>
         <module>robot</module>
@@ -23,17 +36,10 @@
         <module>robot-bean</module>
         <module>robot-dao</module>
         <module>robot-redis</module>
+        <module>robot-api</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-
 </project>

@@ -2,10 +2,10 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     name: Algmis-mysql
-    url: jdbc:mysql://localhost/robot_approve
-    username: lch
+    url: jdbc:mysql://localhost:3306/robot_demo
+    username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 123456
+    password: qwer8023
 mybatis:
   mapper-locations: classpath*:sqlmap/**/*.xml
   configuration:
