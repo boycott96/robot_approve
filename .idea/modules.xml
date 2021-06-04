@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/robot/robot.iml" filepath="$PROJECT_DIR$/robot/robot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robot-bean/robot-bean.iml" filepath="$PROJECT_DIR$/robot-bean/robot-bean.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robot-config/robot-config.iml" filepath="$PROJECT_DIR$/robot-config/robot-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robot-dao/robot-dao.iml" filepath="$PROJECT_DIR$/robot-dao/robot-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robot-redis/robot-redis.iml" filepath="$PROJECT_DIR$/robot-redis/robot-redis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/robot_approve.iml" filepath="$PROJECT_DIR$/robot_approve.iml" />
+    </modules>
+  </component>
+</project>
