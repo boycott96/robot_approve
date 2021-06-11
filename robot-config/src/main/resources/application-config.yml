@@ -19,3 +19,12 @@ logging:
   level:
     ink.lch.dao: debug
   config: classpath:logback-boot.xml
+
+#httpclient配置
+http:
+  max-total: 100
+  default-max-per-route: 20
+  connect-timeout: 1000
+  connection-request-timeout: 500
+  socket-timeout: 10000
+  stale-connection-check-enabled: true

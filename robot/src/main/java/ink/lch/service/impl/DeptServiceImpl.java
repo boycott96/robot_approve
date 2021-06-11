@@ -1,5 +1,6 @@
 package ink.lch.service.impl;
 
+import ink.lch.api.LarkApi;
 import ink.lch.common.CodeEnum;
 import ink.lch.common.ResultBody;
 import ink.lch.config.util.TreeUtils;
@@ -11,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,10 +19,12 @@ import java.util.UUID;
 public class DeptServiceImpl implements DeptService {
 
     private final DeptMapper deptMapper;
+    private final LarkApi larkApi;
 
     @Autowired
-    public DeptServiceImpl(DeptMapper deptMapper) {
+    public DeptServiceImpl(DeptMapper deptMapper, LarkApi larkApi) {
         this.deptMapper = deptMapper;
+        this.larkApi = larkApi;
     }
 
     @Override
@@ -31,14 +32,22 @@ public class DeptServiceImpl implements DeptService {
         if (StringUtils.isEmpty(dept.getName())) {
             return ResultBody.error(CodeEnum.NOT_EMPTY);
         }
+        if (StringUtils.isEmpty(dept.getParentDepartmentId())) {
+            dept.setParentDepartmentId("0");
+        }
         if (StringUtils.isEmpty(dept.getDepartmentId())) {
             dept.setDepartmentId(UUID.randomUUID().toString().replace("-", ""));
         }
-        int insert = deptMapper.insert(dept);
-        if (insert > 0) {
-            return ResultBody.success();
+        ResultBody resultBody = larkApi.createDept(dept);
+        if (resultBody.getCode().equals(CodeEnum.SUCCESS.getResultCode())) {
+            int insert = deptMapper.insert(dept);
+            if (insert > 0) {
+                return ResultBody.success();
+            } else {
+                return ResultBody.error(CodeEnum.SQL_ERROR);
+            }
         }
-        return ResultBody.error(CodeEnum.SQL_ERROR);
+        return resultBody;
     }
 
     @Override
@@ -47,11 +56,16 @@ public class DeptServiceImpl implements DeptService {
         if (StringUtils.isEmpty(dept.getDepartmentId())) {
             return ResultBody.error(CodeEnum.NOT_EMPTY);
         }
-        int edit = deptMapper.updateByPrimaryKey(dept);
-        if (edit > 0) {
-            return ResultBody.success();
+        ResultBody resultBody = larkApi.updateDept(dept);
+        if (resultBody.getCode().equals(CodeEnum.SUCCESS.getResultCode())) {
+            int edit = deptMapper.updateByPrimaryKey(dept);
+            if (edit > 0) {
+                return ResultBody.success();
+            } else {
+                return ResultBody.error(CodeEnum.SQL_ERROR);
+            }
         }
-        return ResultBody.error(CodeEnum.SQL_ERROR);
+        return resultBody;
     }
 
     @Override
@@ -59,11 +73,16 @@ public class DeptServiceImpl implements DeptService {
         if (StringUtils.isEmpty(id)) {
             return ResultBody.error(CodeEnum.NOT_EMPTY);
         }
-        int delete = deptMapper.deleteByPrimaryKey(id);
-        if (delete > 0) {
-            return ResultBody.success();
+        ResultBody resultBody = larkApi.deleteDept(id);
+        if (resultBody.getCode().equals(CodeEnum.SUCCESS.getResultCode())) {
+            int delete = deptMapper.deleteByPrimaryKey(id);
+            if (delete > 0) {
+                return ResultBody.success();
+            } else {
+                return ResultBody.error(CodeEnum.SQL_ERROR);
+            }
         }
-        return ResultBody.error(CodeEnum.SQL_ERROR);
+        return resultBody;
     }
 
     @Override

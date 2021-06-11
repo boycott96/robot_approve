@@ -7,7 +7,7 @@ server:
 #spring的启动文件配置
 spring:
   profiles:
-    include: dao, redis, config
+    include: api, dao, redis, config
 
   servlet:
     multipart:

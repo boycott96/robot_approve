@@ -1,5 +1,6 @@
 package ink.lch.service.impl;
 
+import ink.lch.api.LarkApi;
 import ink.lch.common.CodeEnum;
 import ink.lch.common.ResultBody;
 import ink.lch.dao.UserMapper;
@@ -9,14 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
+    private final LarkApi larkApi;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper) {
+    public UserServiceImpl(UserMapper userMapper, LarkApi larkApi) {
         this.userMapper = userMapper;
+        this.larkApi = larkApi;
     }
 
     @Override
@@ -31,11 +36,16 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isEmpty(id)) {
             return ResultBody.error(CodeEnum.NOT_EMPTY);
         }
-        int i = userMapper.deleteByPrimaryKey(id);
-        if (i > 0) {
-            return ResultBody.success();
+        ResultBody resultBody = larkApi.deleteUser(id);
+        if (resultBody.getCode().equals(CodeEnum.SUCCESS.getResultCode())) {
+            int i = userMapper.deleteByPrimaryKey(id);
+            if (i > 0) {
+                return ResultBody.success();
+            } else {
+                return ResultBody.error(CodeEnum.SQL_ERROR);
+            }
         }
-        return ResultBody.error(CodeEnum.SQL_ERROR);
+        return resultBody;
     }
 
     @Override
@@ -43,11 +53,16 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isEmpty(user.getUserId())) {
             return ResultBody.error(CodeEnum.NOT_EMPTY);
         }
-        int i = userMapper.updateByPrimaryKey(user);
-        if (i > 0) {
-            return ResultBody.success();
+        ResultBody resultBody = larkApi.updateUser(user);
+        if (resultBody.getCode().equals(CodeEnum.SUCCESS.getResultCode())) {
+            int i = userMapper.updateByPrimaryKey(user);
+            if (i > 0) {
+                return ResultBody.success();
+            } else {
+                return ResultBody.error(CodeEnum.SQL_ERROR);
+            }
         }
-        return ResultBody.error(CodeEnum.SQL_ERROR);
+        return resultBody;
     }
 
     @Override
@@ -55,10 +70,18 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isEmpty(user.getName())) {
             return ResultBody.error(CodeEnum.NOT_EMPTY);
         }
-        int i = userMapper.insert(user);
-        if (i > 0) {
-            return ResultBody.success();
+        if (StringUtils.isEmpty(user.getUserId())) {
+            user.setUserId(UUID.randomUUID().toString().replace("-", ""));
         }
-        return ResultBody.error(CodeEnum.SQL_ERROR);
+        ResultBody resultBody = larkApi.createUser(user);
+        if (resultBody.getCode().equals(CodeEnum.SUCCESS.getResultCode())) {
+            int i = userMapper.insert(user);
+            if (i > 0) {
+                return ResultBody.success();
+            } else {
+                return ResultBody.error(CodeEnum.SQL_ERROR);
+            }
+        }
+        return resultBody;
     }
 }

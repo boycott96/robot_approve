@@ -15,6 +15,11 @@
     <description>main for dandelion app</description>
 
     <dependencies>
+        <dependency>
+            <groupId>com.lch.api</groupId>
+            <artifactId>robot-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>ink.lch.dao</groupId>
